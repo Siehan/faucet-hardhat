@@ -68,3 +68,4 @@ Cette fonction comporte différentes conditions :
         emit RobinetTransfer(msg.sender, amountRobinet);
     }
 ```
+# faucet-hardhat
