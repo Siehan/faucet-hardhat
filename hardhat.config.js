@@ -5,7 +5,6 @@ require('hardhat-docgen');
 require('dotenv').config();
 const INFURA_PROJECT_ID = process.env.INFURA_PROJECT_ID;
 const DEPLOYER_PRIVATE_KEY = process.env.DEPLOYER_PRIVATE_KEY;
-
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
