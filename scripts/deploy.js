@@ -17,7 +17,7 @@ async function main() {
 
   // We get the Token contract to deploy
   const RobinetToken = await hre.ethers.getContractFactory('RobinetToken');
-  const robinetToken = await RobinetToken.deploy(ethers.utils.parseEther('1000000'));
+  const robinetToken = await RobinetToken.deploy(1000000);
 
   // Attendre que le contrat soit réellement déployé, cad que la transaction de déploiement
   // soit incluse dans un bloc
