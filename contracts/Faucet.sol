@@ -21,7 +21,7 @@ contract Faucet is Ownable {
 
     event RobinetTransfer(address indexed recipient, uint256 amount);
 
-     /** @notice Faucet for RobinetToken ERC-20 token contract.
+    /** @notice Faucet for RobinetToken ERC-20 token contract.
      * Users can only claim 100 Tokens each time, then reclaim more only 3 days after.
      *
      * @param robinet to set the Token address (RobinetToken).
@@ -30,18 +30,21 @@ contract Faucet is Ownable {
      * _supplyInStock is the exact amount of Tokens left to claim.
      */
 
-     constructor(address robinet) {
+    constructor(address robinet) {
         _Robinet = RobinetToken(robinet);
         require(msg.sender == _Robinet.owner(), "Faucet: Only owner can deploy this contract");
         _supplyInStock = _Robinet.balanceOf(owner());
         _deadLine = 3 days;
     }
 
-     /** @dev This modifier checks if the users can reclaim more Tokens.
+    /** @dev This modifier checks if the users can reclaim more Tokens.
      */
 
     modifier goodTime() {
-        require(block.timestamp >= _claimTokens[msg.sender], "Faucet: You need to wait 3 days before reclaim new Tokens");
+        require(
+            block.timestamp >= _claimTokens[msg.sender],
+            "Faucet: You need to wait 3 days before reclaim new Tokens"
+        );
         _;
     }
 
@@ -53,8 +56,9 @@ contract Faucet is Ownable {
     function claim() public goodTime() {
         require(_supplyInStock != 0, "Faucet: No more Token to claim");
         _claimTokens[msg.sender] = block.timestamp + _deadLine;
-        uint256 amountRobinet = 100 * 10 ** _Robinet.decimals();
+        uint256 amountRobinet = 100 * 10**_Robinet.decimals();
         _Robinet.transferFrom(owner(), msg.sender, amountRobinet);
+        _supplyInStock -= amountRobinet;
         emit RobinetTransfer(msg.sender, amountRobinet);
     }
 
@@ -75,6 +79,7 @@ contract Faucet is Ownable {
     function tokenOwner() public view returns (address) {
         return address(owner());
     }
+
     /** @dev Getter to check the amount of Token left to claim.
      */
     function supplyInStock() public view returns (uint256) {
