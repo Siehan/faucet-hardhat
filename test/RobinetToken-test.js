@@ -24,7 +24,7 @@ describe('robinetToken', function () {
     expect(await robinetToken.symbol()).to.equal(SYMBOL);
   });
 
-  it('should emit a Transer event', async function () {
+  it('should emit a Transfer event', async function () {
     expect(robinetToken.deployTransaction)
       .to.emit(robinetToken, 'Transfer')
       .withArgs(ZERO_ADDRESS, owner.address, TOTAL_SUPPLY);
