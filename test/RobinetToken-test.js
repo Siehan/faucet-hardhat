@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const { ethers } = require('hardhat');
 
-describe('robinetToken', function () {
+describe('robinetToken', async function () {
   let RobinetToken, robinetToken, owner;
   const INITIAL_SUPPLY = '1000000';
   const TOTAL_SUPPLY = ethers.utils.parseEther('1000000');
